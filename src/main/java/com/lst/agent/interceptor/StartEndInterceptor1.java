@@ -1,8 +1,6 @@
 package com.lst.agent.interceptor;
 
 import com.lst.agent.context.EventContext;
-import com.lst.agent.entity.MethodNode;
-import com.lst.agent.entity.MethodNode1;
 import com.lst.agent.entity.NormalEvent;
 import net.bytebuddy.implementation.bind.annotation.Origin;
 import net.bytebuddy.implementation.bind.annotation.RuntimeType;
@@ -16,34 +14,18 @@ import java.util.concurrent.Callable;
  * 开始和结束在同一个节点
  *
  */
-public class StartEndInterceptor {
+public class StartEndInterceptor1 {
     @RuntimeType
     public static Object intercept(@Origin Method method,
                                    @SuperCall Callable<?> callable) throws Exception {
 
         NormalEvent event = EventContext.getEvent();
-        boolean flag = false;
-        if(event==null){
-            event = EventContext.createEvent();
-            flag = true;
-        }
 
-        MethodNode node = new MethodNode();
-        node.setMethodName(method.toString());
-        event.addMethodNode(node);
-
-        long startTime = System.currentTimeMillis();
         Object obj = callable.call();
-        long time = System.currentTimeMillis();
 
-        long ms = time-startTime;
-        node.setCostTime(ms);
-        event.setCostTime(ms);
+        //event.setEndTime(System.currentTimeMillis());
 
-        if(flag){
-            //System.out.println("------------->"+ms);
-            System.out.println(event);
-        }
+        System.out.println(event);
 
         return obj;
     }

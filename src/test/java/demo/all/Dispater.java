@@ -11,8 +11,8 @@ public class Dispater {
     public void init() throws Exception{
 
         DemoHandler handler = new DemoHandler();
-        handler.demo();
-
+        handler.demo2();
+        handler.demo2();
     }
 
 }

@@ -1,8 +1,9 @@
 package com.lst.agent.interceptor;
 
+
 import com.lst.agent.context.EventContext;
-import com.lst.agent.event.NormalEvent;
-import com.lst.agent.node.MethodNode;
+import com.lst.agent.entity.MethodNode;
+import com.lst.agent.entity.NormalEvent;
 import net.bytebuddy.implementation.bind.annotation.Origin;
 import net.bytebuddy.implementation.bind.annotation.RuntimeType;
 import net.bytebuddy.implementation.bind.annotation.SuperCall;
@@ -11,6 +12,7 @@ import java.lang.reflect.Method;
 import java.util.concurrent.Callable;
 
 /**
+ * 节点
  * Created by li on 2018/1/4.
  */
 
@@ -21,29 +23,20 @@ public class NodeInterceptor {
                                    @SuperCall Callable<?> callable) throws Exception {
 
 
-        //System.out.println("methodNode:"+method);
-
         NormalEvent event = EventContext.getEvent();
         MethodNode node = new MethodNode();
+
+        node.setMethodName(method.toString());
+
         event.addMethodNode(node);
 
-//        TimeRecordBean bean = new TimeRecordBean();
-//        bean.setClassesName(method.toString());
-//        bean.setSuccess(true);
-
-        //node.setRecordBean(bean);
-        node.setStartTime(System.currentTimeMillis());
-        node.setMethodName(method.toString());
+        long startTime = System.currentTimeMillis();
 
         Object obj = callable.call();
 
-        MethodNode methodNode = EventContext.getMethodNode();
-        if(methodNode!=null && methodNode!=node){
-            node.addMethodMode(methodNode);
-        }
+        long endTime = System.currentTimeMillis();
 
-        node.setEndTime(System.currentTimeMillis());
-        EventContext.setMethodNode(node);
+        node.setCostTime(endTime-startTime);
 
         return obj;
     }

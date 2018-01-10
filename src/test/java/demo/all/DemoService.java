@@ -9,7 +9,7 @@ public class DemoService {
 
     public int getCount()throws Exception{
 
-        Thread.sleep(400);
+        //Thread.sleep(400);
 
         return 1;
 
@@ -18,7 +18,7 @@ public class DemoService {
 
     public int getCount1()throws Exception{
 
-        Thread.sleep(200);
+        //Thread.sleep(200);
 
         return 2;
 

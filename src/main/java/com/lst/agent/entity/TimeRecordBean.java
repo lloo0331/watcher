@@ -1,6 +1,4 @@
-package com.lst.agent.record;
-
-import com.alibaba.fastjson.JSON;
+package com.lst.agent.entity;
 
 /**
  * Created by li on 2018/1/6.
@@ -18,9 +16,9 @@ public class TimeRecordBean extends RecordBean{
         return classesName;
     }
 
-    @Override
-    public String toString() {
-        return JSON.toJSONString(this);
-    }
+//    @Override
+//    public String toString() {
+//        return JSON.toJSONString(this);
+//    }
 
 }

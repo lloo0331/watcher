@@ -1,4 +1,4 @@
-package com.lst.agent.record;
+package com.lst.agent.entity;
 /**
  * Created by li on 2018/1/6.
  */

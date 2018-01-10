@@ -1,6 +1,6 @@
-package com.lst.agent.node;
+package com.lst.agent.entity;
 
-import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.annotation.JSONField;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -9,27 +9,22 @@ import java.util.List;
  * Created by li on 2018/1/6.
  */
 
-public class MethodNode {
+public class MethodNode1 {
 
     //RecordBean recordBean;
 
-    List<MethodNode> methodNodeList = new LinkedList<>();
+    @JSONField(serialize=false)
+    List<MethodNode1> methodNodeList = new LinkedList<>();
 
+    @JSONField(serialize=false)
     private long startTime;
 
+    @JSONField(serialize=false)
     private long endTime;
 
     private long costTime;
 
     private String methodName;
-
-//    public void setRecordBean(RecordBean recordBean) {
-//        this.recordBean = recordBean;
-//    }
-//
-//    public RecordBean getRecordBean() {
-//        return recordBean;
-//    }
 
     public void setStartTime(long startTime) {
         this.startTime = startTime;
@@ -56,15 +51,15 @@ public class MethodNode {
         return endTime;
     }
 
-    public void setMethodNodeList(List<MethodNode> methodNodeList) {
+    public void setMethodNodeList(List<MethodNode1> methodNodeList) {
         this.methodNodeList = methodNodeList;
     }
 
-    public List<MethodNode> getMethodNodeList() {
+    public List<MethodNode1> getMethodNodeList() {
         return methodNodeList;
     }
 
-    public void addMethodMode(MethodNode node){
+    public void addMethodMode(MethodNode1 node){
         methodNodeList.add(node);
     }
 
@@ -76,9 +71,9 @@ public class MethodNode {
         return methodName;
     }
 
-    @Override
-    public String toString() {
-        return JSON.toJSONString(this);
-    }
+//    @Override
+//    public String toString() {
+//        return JSON.toJSONString(this);
+//    }
 
 }

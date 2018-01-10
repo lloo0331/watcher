@@ -8,7 +8,7 @@ public class DemoHandler {
 
     public int demo() throws Exception {
 
-        Thread.sleep(500);
+        //Thread.sleep(500);
         DemoService service = new DemoService();
         return service.getCount();
     }
@@ -16,9 +16,11 @@ public class DemoHandler {
 
     public int demo2()throws Exception{
 
-        Thread.sleep(500);
+        //Thread.sleep(500);
         DemoService service = new DemoService();
-        service.getCount();
+//        service.getCount();
+//        service.getCount();
+//        service.getCount();
 
         return service.getCount1();
 
