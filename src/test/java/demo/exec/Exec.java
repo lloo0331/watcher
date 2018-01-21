@@ -10,25 +10,17 @@ public class Exec {
 
     public static void main(String args[])throws Exception{
 
-//        for(int i = 0;i<5;i++){
-//            Thread thread = new Thread(new Runnable() {
-//                @Override
-//                public void run() {
-//                    try{
-//                        aa();
-//                    }catch(Exception e){
-//                        e.printStackTrace();
-//                    }
-//                }
-//            });
-//            thread.start();
-//        }
-
-//        Dispater dispater = new Dispater();
-//        dispater.init();
-//        aa();
-//        aa();
         aa();
+
+        Thread.sleep(1000);
+
+        for(int i= 0;i<20;i++){
+            aaa();
+
+        }
+
+
+
     }
 
 
@@ -38,4 +30,10 @@ public class Exec {
         dispater.init();
     }
 
+
+    public static void aaa() throws Exception {
+        int a = 2;
+        Dispater dispater = new Dispater();
+        dispater.init();
+    }
 }

@@ -12,7 +12,6 @@ import java.util.List;
 
 public class NormalEvent {
 
-
     private long traceId;
 
     private long costTime;
@@ -53,7 +52,6 @@ public class NormalEvent {
     public void setMethodNode(List<MethodNode> methodNodes) {
         this.methodNodes = methodNodes;
     }
-
 
     public void setMethodNode(MethodNode methodNode) {
         this.methodNode = methodNode;

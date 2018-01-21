@@ -1,5 +1,8 @@
 package com.lst.agent.context;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.lst.agent.entity.NormalEvent;
 import com.lst.agent.entity.MethodNode1;
 
@@ -46,6 +49,10 @@ public class EventContext {
         return event;
     }
 
+    public static void clear(){
+        CONTEXT.set(null);
+    }
+
     public static NormalEvent getOrCreateEvent(){
         NormalEvent event = getEvent();
         if(event==null){
@@ -73,7 +80,7 @@ public class EventContext {
 
     public static MethodNode1 getMethodNode(){return METHOD_NODE.get();}
 
-    public static long getStartTime(){
+    public static long getOrCreStartTime(){
         Long time = START_TIME.get();
         if(time==null){
             time = System.currentTimeMillis();

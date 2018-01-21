@@ -40,10 +40,12 @@ public class StartEndInterceptor {
         node.setCostTime(ms);
         event.setCostTime(ms);
 
-        if(flag){
+        if(flag){//避免递归
             //System.out.println("------------->"+ms);
             System.out.println(event);
+            EventContext.clear();
         }
+
 
         return obj;
     }
