@@ -24,13 +24,6 @@ public class AgentHelp {
      */
     public static StringMatcher.Mode getMode(String matchType){
 
-
-//        StringMatcher.Mode[] modes = StringMatcher.Mode.values();
-//
-//        for(StringMatcher.Mode m:modes){
-//            System.out.println(m.name());
-//        }
-
         StringMatcher.Mode mode = StringMatcher.Mode.valueOf(matchType);
 
         return mode;
@@ -65,6 +58,38 @@ public class AgentHelp {
             @Override
             public void onTransformation(TypeDescription typeDescription, ClassLoader classLoader, JavaModule module, boolean loaded, DynamicType dynamicType) {
                 System.out.println("onTransformation:"+typeDescription.getTypeName());
+            }
+
+            @Override
+            public void onIgnored(TypeDescription typeDescription, ClassLoader classLoader, JavaModule module, boolean loaded) {
+
+            }
+
+            @Override
+            public void onError(String typeName, ClassLoader classLoader, JavaModule module, boolean loaded, Throwable throwable) {
+
+            }
+
+            @Override
+            public void onComplete(String typeName, ClassLoader classLoader, JavaModule module, boolean loaded) {
+                //System.out.println("onComplete:"+typeName+";load="+loaded);
+
+            }
+
+        };
+        return listener;
+    }
+
+    public static AgentBuilder.Listener getDefaultListener1(){
+        AgentBuilder.Listener listener = new AgentBuilder.Listener() {
+            @Override
+            public void onDiscovery(String typeName, ClassLoader classLoader, JavaModule module, boolean loaded) {
+
+            }
+
+            @Override
+            public void onTransformation(TypeDescription typeDescription, ClassLoader classLoader, JavaModule module, boolean loaded, DynamicType dynamicType) {
+                System.out.println("11111111111onTransformation:"+typeDescription.getTypeName());
             }
 
             @Override

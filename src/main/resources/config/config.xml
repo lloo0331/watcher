@@ -12,30 +12,9 @@
         1.cmd type为linux时，exitScreen为退出screen的命令
         2.commanders和commander的name属性，仅仅是用于显示输出
  -->
-<config>
-    <host>10.6.8.246</host>
-    <port>22</port>
-    <username>root</username>
-    <password>NdGTVo3UQS6Clsmld2b1</password>
+<AgentChain>
 
-    <defaultEndMark>[root@Centos</defaultEndMark>
 
-    <commanders name="服务器自动更新程序">
-        <!-- 解压 -->
-        <commanders name="解压">
-            <commander name="cd">
-                <type>linux</type>
-                <cmd>cd /root/program/w3/</cmd>
-                <endMark></endMark>
-                <timeout>1</timeout>
-            </commander>
-            <commander name="unzip">
-                <type>linux</type>
-                <cmd>./unzip.sh</cmd>
-                <endMark>unziped successfully</endMark>
-                <timeout>10</timeout>
-            </commander>
-        </commanders>
 
-    </commanders>
-</config>
+
+</AgentChain>

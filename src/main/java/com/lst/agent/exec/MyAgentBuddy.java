@@ -37,27 +37,6 @@ public class MyAgentBuddy {
 
         AgentBuilder.Transformer transformer2 = AgentHelp.createTransformer("JsonInterceptor","toString","EQUALS_FULLY");
 
-//        AgentBuilder.Transformer transformer1 = new AgentBuilder.Transformer() {
-//            @Override
-//            public DynamicType.Builder<?> transform(DynamicType.Builder<?> builder, TypeDescription typeDescription, ClassLoader classLoader, JavaModule module) {
-//                return builder
-//                        .method(ElementMatchers.<MethodDescription>any()) // 拦截任意方法
-//                        .intercept(MethodDelegation.to(NodeInterceptor.class)
-//                        );
-//            }
-//        };
-
-//        AgentBuilder builder = new AgentBuilder
-//                .Default()
-//                .type(ElementMatchers.nameStartsWith("demo.exec")) // 指定需要拦截的类
-//                .transform(transformer)
-//                .type(ElementMatchers.nameStartsWith("demo.all")) // 指定需要拦截的类
-//                .transform(transformer1)
-//                .type(ElementMatchers.nameStartsWith("com.lst.agent.entity")) // 指定需要拦截的类
-//                .transform(transformer2)
-//                .with(AgentHelp.getDefaultListener());
-
-
         AgentBuilder builder = new AgentBuilder
                 .Default()
                 .type(AgentHelp.getMatcher("demo.exec","STARTS_WITH")) // 指定需要拦截的类
@@ -68,11 +47,14 @@ public class MyAgentBuddy {
                 .transform(transformer2)
                 .with(AgentHelp.getDefaultListener());
 
+
+
         //这个是在Class加载的时候进行检测的.如果某个类没有使用到,则不会修改到
 
         builder.installOn(inst);
 
-        scan();
+
+        //scan();
 
     }
 
