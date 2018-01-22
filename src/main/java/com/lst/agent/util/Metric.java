@@ -1,4 +1,4 @@
-package com.lst.agent.demo;
+package com.lst.agent.util;
 
 import java.lang.management.GarbageCollectorMXBean;
 import java.lang.management.ManagementFactory;

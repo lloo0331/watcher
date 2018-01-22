@@ -1,7 +1,7 @@
 package com.lst.agent.interceptor;
 
 import com.lst.agent.context.EventContext;
-import com.lst.agent.entity.MethodNode1;
+import com.lst.agent.entity.MethodNode;
 import com.lst.agent.entity.NormalEvent;
 import com.lst.agent.entity.TimeRecordBean;
 import net.bytebuddy.implementation.bind.annotation.Origin;
@@ -22,18 +22,18 @@ public class StartInterceptor {
     public static Object intercept(@Origin Method method,
                                    @SuperCall Callable<?> callable) throws Exception {
         NormalEvent event = EventContext.getEvent();
-        MethodNode1 node = new MethodNode1();
+        MethodNode node = new MethodNode();
         //event.addMethodNode(node);
 
         TimeRecordBean bean = new TimeRecordBean();
         bean.setClassesName(method.toString());
 
         //node.setRecordBean(bean);
-        node.setStartTime(System.currentTimeMillis());
+        long time = System.currentTimeMillis();
 
         Object obj = callable.call();
 
-        node.setEndTime(System.currentTimeMillis());
+        node.setCostTime(System.currentTimeMillis()-time);
 
         return obj;
     }

@@ -2,7 +2,6 @@ package com.lst.agent.interceptor;
 
 import com.lst.agent.context.EventContext;
 import com.lst.agent.entity.MethodNode;
-import com.lst.agent.entity.MethodNode1;
 import com.lst.agent.entity.NormalEvent;
 import net.bytebuddy.implementation.bind.annotation.Origin;
 import net.bytebuddy.implementation.bind.annotation.RuntimeType;
@@ -43,9 +42,8 @@ public class StartEndInterceptor {
         if(flag){//避免递归
             //System.out.println("------------->"+ms);
             System.out.println(event);
-            EventContext.clear();
+            EventContext.clear();//清除节点
         }
-
 
         return obj;
     }

@@ -21,8 +21,6 @@ public class NodeInterceptor {
     @RuntimeType
     public static Object intercept(@Origin Method method,
                                    @SuperCall Callable<?> callable) throws Exception {
-
-
         NormalEvent event = EventContext.getEvent();
         MethodNode node = new MethodNode();
 
