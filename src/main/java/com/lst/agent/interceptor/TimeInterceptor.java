@@ -8,12 +8,10 @@ import java.lang.reflect.Method;
 import java.util.concurrent.Callable;
 
 /**
- * 时间打印
+ * 时间打印,为指定的方法添加执行耗时打印
  * Created by li on 2018/1/4.
  */
-
-
-public class TimeInterceptor {
+public class TimeInterceptor extends Interceptor{
     @RuntimeType
     public static Object intercept(@Origin Method method,
                                    @SuperCall Callable<?> callable) throws Exception {

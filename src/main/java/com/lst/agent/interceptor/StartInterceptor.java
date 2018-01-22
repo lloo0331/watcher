@@ -17,7 +17,7 @@ import java.util.concurrent.Callable;
  */
 
 
-public class StartInterceptor {
+public class StartInterceptor extends Interceptor{
     @RuntimeType
     public static Object intercept(@Origin Method method,
                                    @SuperCall Callable<?> callable) throws Exception {

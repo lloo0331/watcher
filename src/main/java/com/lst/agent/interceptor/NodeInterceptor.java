@@ -15,9 +15,7 @@ import java.util.concurrent.Callable;
  * 节点
  * Created by li on 2018/1/4.
  */
-
-
-public class NodeInterceptor {
+public class NodeInterceptor extends Interceptor{
     @RuntimeType
     public static Object intercept(@Origin Method method,
                                    @SuperCall Callable<?> callable) throws Exception {
@@ -30,12 +28,14 @@ public class NodeInterceptor {
 
         long startTime = System.currentTimeMillis();
 
-        Object obj = callable.call();
+        try{
+            Object obj = callable.call();
+            return obj;
+        }finally {
+            long endTime = System.currentTimeMillis();
 
-        long endTime = System.currentTimeMillis();
+            node.setCostTime(endTime-startTime);
+        }
 
-        node.setCostTime(endTime-startTime);
-
-        return obj;
     }
 }

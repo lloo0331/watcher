@@ -13,11 +13,11 @@ import java.util.concurrent.Callable;
  */
 
 
-public class EndInterceptor {
+public class EndInterceptor extends Interceptor{
     @RuntimeType
     public static Object intercept(@Origin Method method,
                                    @SuperCall Callable<?> callable) throws Exception {
-        
+
         return callable.call();
     }
 }

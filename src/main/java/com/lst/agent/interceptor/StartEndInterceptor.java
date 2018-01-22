@@ -13,9 +13,8 @@ import java.util.concurrent.Callable;
 /**
  * Created by li on 2018/1/4.
  * 开始和结束在同一个节点
- *
  */
-public class StartEndInterceptor {
+public class StartEndInterceptor extends Interceptor{
     @RuntimeType
     public static Object intercept(@Origin Method method,
                                    @SuperCall Callable<?> callable) throws Exception {
@@ -32,19 +31,21 @@ public class StartEndInterceptor {
         event.addMethodNode(node);
 
         long startTime = System.currentTimeMillis();
-        Object obj = callable.call();
-        long time = System.currentTimeMillis();
+        Object obj = null;
+        try{
+            obj = callable.call();
+            return obj;
+        }finally {
+            long time = System.currentTimeMillis();
+            long ms = time-startTime;
+            node.setCostTime(ms);
+            event.setCostTime(ms);
 
-        long ms = time-startTime;
-        node.setCostTime(ms);
-        event.setCostTime(ms);
-
-        if(flag){//避免递归
-            //System.out.println("------------->"+ms);
-            System.out.println(event);
-            EventContext.clear();//清除节点
+            if(flag){//避免递归
+                //System.out.println("------------->"+ms);
+                System.out.println(event);
+                EventContext.clear();//清除节点
+            }
         }
-
-        return obj;
     }
 }

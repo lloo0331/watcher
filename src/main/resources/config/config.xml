@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- host、port、username、password 必须正确 -->
+<!-- 最外层必须是有且只有一个commanders， 内层的commanders仅仅起"美观"作用，不加也行 -->
+<!--
+    commander 现在有4个子元素
+        type决定用什么处理器，目前只有win、linux、sftp_upload三个，分别处理windows命令、linux命令、sftp_upload执行上传
+        cmd type为win、linux时，cmd对应的平台命令；type为sftp_upload时，分别为远程目的上传路径和本地目标文件路径，以";"为分隔符
+        endMark 用于根据输出的结果判断命令执行是否成功，最好是配合timeout一起用
+        timeout 命令等待输出的最大时间，如果超过这个时间还没有任何输出，则默认命令执行结束，不提供endMark一定要提供timeout，且>=1
+-->
+<!-- 还有一些特殊的事项：
+        1.cmd type为linux时，exitScreen为退出screen的命令
+        2.commanders和commander的name属性，仅仅是用于显示输出
+ -->
+<config>
+    <host>10.6.8.246</host>
+    <port>22</port>
+    <username>root</username>
+    <password>NdGTVo3UQS6Clsmld2b1</password>
+
+    <defaultEndMark>[root@Centos</defaultEndMark>
+
+    <commanders name="服务器自动更新程序">
+        <!-- 解压 -->
+        <commanders name="解压">
+            <commander name="cd">
+                <type>linux</type>
+                <cmd>cd /root/program/w3/</cmd>
+                <endMark></endMark>
+                <timeout>1</timeout>
+            </commander>
+            <commander name="unzip">
+                <type>linux</type>
+                <cmd>./unzip.sh</cmd>
+                <endMark>unziped successfully</endMark>
+                <timeout>10</timeout>
+            </commander>
+        </commanders>
+
+    </commanders>
+</config>
