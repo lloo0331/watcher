@@ -20,9 +20,15 @@ public class NodeInterceptor extends Interceptor{
     public static Object intercept(@Origin Method method,
                                    @SuperCall Callable<?> callable) throws Exception {
         NormalEvent event = EventContext.getEvent();
+        if(event==null){
+            Object obj = callable.call();
+            return obj;
+        }
+
         MethodNode node = new MethodNode();
 
         node.setMethodName(method.toString());
+
 
         event.addMethodNode(node);
 
