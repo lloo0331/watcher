@@ -1,6 +1,7 @@
 package com.lst.agent.exec;
 
 import com.lst.agent.config.entity.AgentChain;
+import com.lst.agent.config.entity.AgentClass;
 import com.lst.agent.config.entity.AgentElement;
 import com.lst.agent.interceptor.*;
 import com.lst.agent.match.InterceptorMatch;
@@ -33,57 +34,43 @@ public class MyAgentBuddy {
 
         System.out.println("this is an perform monitor agent.");
 
-        AgentBuilder.Transformer transformer = AgentHelp.createTransformer("StartEndInterceptor","aa","STARTS_WITH");
+        AgentBuilder builder = new AgentBuilder.Default();
 
-        AgentBuilder.Transformer transformer1 = AgentHelp.createTransformer("NodeInterceptor","any","any");
+        AgentChain chain = AgentHelp.createAgentChain();
 
-        AgentBuilder.Transformer transformer2 = AgentHelp.createTransformer("JsonInterceptor","toString","EQUALS_FULLY");
-
-//        AgentBuilder builder = new AgentBuilder.Default();
-//
-//        AgentChain chain = AgentHelp.createAgentChain();
-//
-//        for(AgentElement e:chain.getList()){
-//            System.out.println(e);
-//            builder = e.exec(builder);
-//        }
-
-        AgentBuilder builder = new AgentBuilder
-                .Default()
-                .type(AgentHelp.getMatcher("demo.exec","STARTS_WITH")) // 指定需要拦截的类
-                .transform(transformer)
-                .type(AgentHelp.getMatcher("demo.all","STARTS_WITH")) // 指定需要拦截的类
-                .transform(transformer1)
-                .type(AgentHelp.getMatcher("com.lst.agent.entity","STARTS_WITH")) // 指定需要拦截的类
-                .transform(transformer2)
-                .with(AgentHelp.getDefaultListener());
+        for(AgentElement e:chain.getList()){
+            //System.out.println(e);
+            builder = e.exec(builder);
+        }
 
         //这个是在Class加载的时候进行检测的.如果某个类没有使用到,则不会修改到
         builder.installOn(inst);
+
+        loadClass(chain);
+
 
         //scan();
 
     }
 
     /**
-     * 扫描加载类,这个用于耗时统计那个功能,先加载可以有效的减少耗时统计的误差
+     * 提前加载类,这个用于耗时统计那个功能,先加载可以有效的减少耗时统计的误差
+     * @param chain
      */
-    public static void scan(){
-        Set<Class> set1 =  ClassPathScanner.scan("com.lst.agent.entity",true,false,false,null);
-        Set<Class> set2 =  ClassPathScanner.scan("demo",true,false,false,null);
-
-        for(Class cls:set1){
-            try {
-                cls.newInstance();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-        for(Class cls:set2){
-            try {
-                cls.newInstance();
-            } catch (Exception e) {
-                e.printStackTrace();
+    private static void loadClass(AgentChain chain) {
+        for(AgentElement element:chain.getList()){
+            if(element instanceof AgentClass){
+                AgentClass classes = (AgentClass)element;
+                if(classes.isScan()){
+                    Set<Class> set1 = ClassPathScanner.scan(classes.getClassName(),true,false,false,null);
+                    for(Class cls:set1){
+                        try {
+                            cls.newInstance();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
             }
         }
     }

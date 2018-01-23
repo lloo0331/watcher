@@ -9,7 +9,7 @@ import net.bytebuddy.agent.builder.AgentBuilder;
 public class AgentListener extends AgentElement{
 
     public AgentBuilder exec(AgentBuilder builder){
-        builder.with(AgentHelp.getDefaultListener());
+        builder = builder.with(AgentHelp.getDefaultListener());
         return builder;
     }
 

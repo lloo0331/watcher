@@ -4,6 +4,7 @@
       "elementName":"AgentClass",
       "className":"demo.exec",
       "matchType":"STARTS_WITH",
+      "scan":false,
       "method":{
         "interceptor":"StartEndInterceptor",
         "methodName":"aa",
@@ -14,6 +15,7 @@
       "elementName":"AgentClass",
       "className":"demo.all",
       "matchType":"STARTS_WITH",
+      "scan":true,
       "method":{
         "interceptor":"NodeInterceptor",
         "methodName":"any",
@@ -24,6 +26,7 @@
       "elementName":"AgentClass",
       "className":"com.lst.agent.entity",
       "matchType":"STARTS_WITH",
+      "scan":true,
       "method":{
         "interceptor":"JsonInterceptor",
         "methodName":"toString",

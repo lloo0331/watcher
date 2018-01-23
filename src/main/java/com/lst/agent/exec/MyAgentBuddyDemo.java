@@ -46,8 +46,6 @@ public class MyAgentBuddyDemo {
                 .transform(transformer1)
                 .with(AgentHelp.getDefaultListener());
 
-
-
         //这个是在Class加载的时候进行检测的.如果某个类没有使用到,则不会修改到
         builder.installOn(inst);
 

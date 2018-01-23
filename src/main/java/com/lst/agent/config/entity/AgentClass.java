@@ -1,7 +1,10 @@
 package com.lst.agent.config.entity;
 
 import com.lst.agent.util.AgentHelp;
+import com.lst.agent.util.ClassPathScanner;
 import net.bytebuddy.agent.builder.AgentBuilder;
+
+import java.util.Set;
 
 /**
  * Created by li on 2018/1/22.
@@ -14,6 +17,8 @@ public class AgentClass extends AgentElement{
     private String matchType;
 
     private AgentMethod method;
+
+    private boolean scan;
 
     public void setMethod(AgentMethod method) {
         this.method = method;
@@ -39,6 +44,14 @@ public class AgentClass extends AgentElement{
         return matchType;
     }
 
+    public void setScan(boolean scan) {
+        this.scan = scan;
+    }
+
+    public boolean isScan() {
+        return scan;
+    }
+
     @Override
     public String toString() {
         return "AgentClass{" +
@@ -52,9 +65,9 @@ public class AgentClass extends AgentElement{
         if(method!=null){
             method.exec(builder);
             AgentBuilder.Transformer transformer = AgentHelp.createTransformer(method.getInterceptor(),method.getMethodName(),method.getMatchType());
-            builder.type(AgentHelp.getMatcher(className,matchType)).transform(transformer);
+            builder = builder.type(AgentHelp.getMatcher(className,matchType)).transform(transformer);
         }else{
-            builder.type(AgentHelp.getMatcher(className,matchType));
+            builder = builder.type(AgentHelp.getMatcher(className,matchType)).transform(null);
             System.out.println("method为空");
         }
         return builder;
