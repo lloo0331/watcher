@@ -13,6 +13,9 @@
         2.commanders和commander的name属性，仅仅是用于显示输出
  -->
 <AgentChain>
+    <AgentClass>
+
+    </AgentClass>
 
 
 

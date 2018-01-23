@@ -1,5 +1,9 @@
 package com.lst.agent.util;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
+import com.lst.agent.config.entity.*;
 import com.lst.agent.match.InterceptorMatch;
 import net.bytebuddy.agent.builder.AgentBuilder;
 import net.bytebuddy.description.NamedElement;
@@ -11,6 +15,8 @@ import net.bytebuddy.matcher.ElementMatcher;
 import net.bytebuddy.matcher.NameMatcher;
 import net.bytebuddy.matcher.StringMatcher;
 import net.bytebuddy.utility.JavaModule;
+
+import java.io.*;
 
 /**
  * Created by lst on 2018/1/22.
@@ -28,7 +34,27 @@ public class AgentHelp {
 
         return mode;
 
+    }
 
+    //创建代理链
+    public static AgentChain createAgentChain(){
+        String a = FileUtil.getString("config/config.json");
+        JSONObject jsonObject = JSON.parseObject(a);
+        AgentChain chain = new AgentChain();
+
+        JSONArray array = jsonObject.getJSONArray("lists");
+        for(int i = 0;i<array.size();i++){
+            JSONObject obj = array.getJSONObject(i);
+            if(obj.get("elementName").equals("AgentClass")){
+                AgentClass agentClass = JSON.toJavaObject(obj,AgentClass.class);
+                chain.addAgentElement(agentClass);
+            }else if(obj.get("elementName").equals("AgentListener")){
+                AgentListener listener = JSON.toJavaObject(obj,AgentListener.class);
+                chain.addAgentElement(listener);
+            }
+        }
+
+        return chain;
     }
 
     /**
@@ -58,38 +84,6 @@ public class AgentHelp {
             @Override
             public void onTransformation(TypeDescription typeDescription, ClassLoader classLoader, JavaModule module, boolean loaded, DynamicType dynamicType) {
                 System.out.println("onTransformation:"+typeDescription.getTypeName());
-            }
-
-            @Override
-            public void onIgnored(TypeDescription typeDescription, ClassLoader classLoader, JavaModule module, boolean loaded) {
-
-            }
-
-            @Override
-            public void onError(String typeName, ClassLoader classLoader, JavaModule module, boolean loaded, Throwable throwable) {
-
-            }
-
-            @Override
-            public void onComplete(String typeName, ClassLoader classLoader, JavaModule module, boolean loaded) {
-                //System.out.println("onComplete:"+typeName+";load="+loaded);
-
-            }
-
-        };
-        return listener;
-    }
-
-    public static AgentBuilder.Listener getDefaultListener1(){
-        AgentBuilder.Listener listener = new AgentBuilder.Listener() {
-            @Override
-            public void onDiscovery(String typeName, ClassLoader classLoader, JavaModule module, boolean loaded) {
-
-            }
-
-            @Override
-            public void onTransformation(TypeDescription typeDescription, ClassLoader classLoader, JavaModule module, boolean loaded, DynamicType dynamicType) {
-                System.out.println("11111111111onTransformation:"+typeDescription.getTypeName());
             }
 
             @Override

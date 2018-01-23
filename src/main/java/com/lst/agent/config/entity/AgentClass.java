@@ -7,7 +7,7 @@ import net.bytebuddy.agent.builder.AgentBuilder;
  * Created by li on 2018/1/22.
  */
 
-public class AgentClass {
+public class AgentClass extends AgentElement{
 
     private String className;
 
@@ -48,11 +48,16 @@ public class AgentClass {
                 '}';
     }
 
-    public void exec(AgentBuilder builder){
-        builder.type(AgentHelp.getMatcher(className,matchType));
+    public AgentBuilder exec(AgentBuilder builder){
         if(method!=null){
             method.exec(builder);
+            AgentBuilder.Transformer transformer = AgentHelp.createTransformer(method.getInterceptor(),method.getMethodName(),method.getMatchType());
+            builder.type(AgentHelp.getMatcher(className,matchType)).transform(transformer);
+        }else{
+            builder.type(AgentHelp.getMatcher(className,matchType));
+            System.out.println("method为空");
         }
+        return builder;
     }
 
 

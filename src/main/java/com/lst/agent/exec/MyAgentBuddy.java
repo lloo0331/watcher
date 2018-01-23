@@ -1,5 +1,7 @@
 package com.lst.agent.exec;
 
+import com.lst.agent.config.entity.AgentChain;
+import com.lst.agent.config.entity.AgentElement;
 import com.lst.agent.interceptor.*;
 import com.lst.agent.match.InterceptorMatch;
 import com.lst.agent.util.AgentHelp;
@@ -37,6 +39,15 @@ public class MyAgentBuddy {
 
         AgentBuilder.Transformer transformer2 = AgentHelp.createTransformer("JsonInterceptor","toString","EQUALS_FULLY");
 
+//        AgentBuilder builder = new AgentBuilder.Default();
+//
+//        AgentChain chain = AgentHelp.createAgentChain();
+//
+//        for(AgentElement e:chain.getList()){
+//            System.out.println(e);
+//            builder = e.exec(builder);
+//        }
+
         AgentBuilder builder = new AgentBuilder
                 .Default()
                 .type(AgentHelp.getMatcher("demo.exec","STARTS_WITH")) // 指定需要拦截的类
@@ -47,12 +58,8 @@ public class MyAgentBuddy {
                 .transform(transformer2)
                 .with(AgentHelp.getDefaultListener());
 
-
-
         //这个是在Class加载的时候进行检测的.如果某个类没有使用到,则不会修改到
-
         builder.installOn(inst);
-
 
         //scan();
 

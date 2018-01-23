@@ -40,7 +40,6 @@ public class AgentMethod {
     }
 
     public void exec(AgentBuilder builder){
-        AgentBuilder.Transformer transformer = AgentHelp.createTransformer(interceptor,"any","any");
 
 //        builder.type(AgentHelp.getMatcher(className,matchType));
 //        if(method!=null){
