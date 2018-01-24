@@ -12,6 +12,8 @@ import java.util.concurrent.Callable;
  * Created by li on 2018/1/4.
  */
 public class TimeInterceptor extends Interceptor{
+
+    public static long printTime = 20;
     @RuntimeType
     public static Object intercept(@Origin Method method,
                                    @SuperCall Callable<?> callable) throws Exception {
@@ -21,7 +23,11 @@ public class TimeInterceptor extends Interceptor{
             // 原有函数执行
             return callable.call();
         } finally {
-            System.out.println(method + ": took " + (System.currentTimeMillis() - start) + "ms");
+            long ms = System.currentTimeMillis()-start;
+            if(ms>=printTime){
+                System.out.println(method + ": took " + ms + "ms");
+            }
+
         }
     }
 }
