@@ -13,6 +13,7 @@ public class Dispater {
         DemoHandler handler = new DemoHandler();
         handler.demo2();
         handler.demo2();
+        handler.demo2();
     }
 
 }

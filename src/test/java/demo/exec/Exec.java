@@ -10,28 +10,12 @@ public class Exec {
 
     public static void main(String args[])throws Exception{
 
-        aa();
+        Exec1 exec = new Exec1();
 
-        Thread.sleep(1000);
+        exec.aa();
 
-        for(int i= 0;i<20;i++){
-            aaa();
-        }
-
-        System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
     }
 
 
-    public static void aa() throws Exception {
-        int a = 2;
-        Dispater dispater = new Dispater();
-        dispater.init();
-    }
 
-
-    public static void aaa() throws Exception {
-        int a = 2;
-        Dispater dispater = new Dispater();
-        dispater.init();
-    }
 }

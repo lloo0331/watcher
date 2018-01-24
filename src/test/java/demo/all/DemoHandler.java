@@ -19,8 +19,8 @@ public class DemoHandler {
         //Thread.sleep(500);
         DemoService service = new DemoService();
 //        service.getCount();
-//        service.getCount();
-//        service.getCount();
+        service.getCount();
+        service.getCount();
 
         return service.getCount1();
 
