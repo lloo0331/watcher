@@ -8,7 +8,7 @@ import java.lang.reflect.Method;
 import java.util.concurrent.Callable;
 
 /**
- * 结束节点
+ * 结束节点,未启用
  * Created by li on 2018/1/4.
  */
 

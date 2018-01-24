@@ -1,6 +1,7 @@
 package com.lst.agent.config.entity;
 /**
  * Created by li on 2018/1/22.
+ * 代理链
  */
 
 import com.alibaba.fastjson.JSON;

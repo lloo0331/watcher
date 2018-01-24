@@ -8,6 +8,7 @@ import java.util.Set;
 
 /**
  * Created by li on 2018/1/22.
+ * 代理类
  */
 
 public class AgentClass extends AgentElement{

@@ -29,7 +29,6 @@ public class NodeInterceptor extends Interceptor{
 
         node.setMethodName(method.toString());
 
-
         event.addMethodNode(node);
 
         long startTime = System.currentTimeMillis();

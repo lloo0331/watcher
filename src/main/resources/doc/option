@@ -1,2 +1,3 @@
 -javaagent:F:\watcher\target\my-agent.jar=first
 -javaagent:D:\IdeaProject\watcher\target\my-agent.jar=first
+-javaagent:E:\my-agent.jar=first

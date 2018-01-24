@@ -7,9 +7,8 @@ import java.util.List;
 
 /**
  * Created by li on 2018/1/6.
+ * 事件
  */
-
-
 public class NormalEvent {
 
     private long traceId;

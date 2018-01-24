@@ -23,6 +23,7 @@ import java.util.Iterator;
 import java.util.Set;
 
 /**
+ * 程序入口
  * Created by li on 2018/1/4.
  */
 
@@ -34,22 +35,20 @@ public class MyAgentBuddy {
 
         System.out.println("this is an perform monitor agent.");
 
-        AgentBuilder builder = new AgentBuilder.Default();
+        AgentBuilder builder = new AgentBuilder.Default();//创建默认代理链
 
-        AgentChain chain = AgentHelp.createAgentChain();
+        AgentChain chain = AgentHelp.createAgentChain();//读json文件,装配代理链
 
         for(AgentElement e:chain.getList()){
             //System.out.println(e);
             builder = e.exec(builder);
-        }
+        }//执行代理链
 
         //这个是在Class加载的时候进行检测的.如果某个类没有使用到,则不会修改到
         builder.installOn(inst);
 
+        //提前加载类
         loadClass(chain);
-
-
-        //scan();
 
     }
 

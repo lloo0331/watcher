@@ -1,10 +1,8 @@
 package com.lst.agent.config.entity;
 /**
  * Created by li on 2018/1/22.
+ * 代理方法
  */
-
-import com.alibaba.fastjson.JSON;
-import com.lst.agent.util.AgentHelp;
 import net.bytebuddy.agent.builder.AgentBuilder;
 
 public class AgentMethod {
