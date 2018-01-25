@@ -6,17 +6,16 @@ package com.lst.agent.entity;
 import com.alibaba.fastjson.annotation.JSONField;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Stack;
 
 public class TraceEntity {
 
-    private int traceId;//id
+    private int spanId;//id
 
     //private int parentTraceId;//父亲节点的id
-    @JSONField(serialize = false)
-    private TraceEntity parent;//父亲节点
+//    @JSONField(serialize = false)
+//    private TraceEntity parent;//父亲节点
 
     private List<TraceEntity> list = new ArrayList<>();//孩子节点
 
@@ -32,8 +31,8 @@ public class TraceEntity {
 
     private long costTime;//消费时间
 
-    public void setTraceId(int traceId) {
-        this.traceId = traceId;
+    public void setSpanId(int spanId) {
+        this.spanId = spanId;
     }
 
     public void setClassName(String className) {
@@ -44,9 +43,9 @@ public class TraceEntity {
         this.methodName = methodName;
     }
 
-    public void setParent(TraceEntity parent) {
-        this.parent = parent;
-    }
+//    public void setParent(TraceEntity parent) {
+//        this.parent = parent;
+//    }
 
     public void setEndTime(long endTime) {
         this.endTime = endTime;
@@ -64,13 +63,13 @@ public class TraceEntity {
         return methodName;
     }
 
-    public int getTraceId() {
-        return traceId;
+    public int getSpanId() {
+        return spanId;
     }
 
-    public TraceEntity getParent() {
-        return parent;
-    }
+//    public TraceEntity getParent() {
+//        return parent;
+//    }
 
     public List<TraceEntity> getList() {
         return list;
@@ -112,17 +111,11 @@ public class TraceEntity {
     @Override
     public String toString() {
         return "TraceEntity{" +
-                "traceId=" + traceId +
+                "spanId=" + spanId +
                 ", className='" + className + '\'' +
                 ", methodName='" + methodName + '\'' +
                 ", costTime=" + (endTime-startTime)+
                 '}';
     }
 
-    public void print(){
-//        System.out.println(toString());
-//        for(TraceEntity e:list){
-//            e.print();
-//        }
-    }
 }

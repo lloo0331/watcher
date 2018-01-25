@@ -3,7 +3,6 @@ package com.lst.agent.interceptor;
 
 import com.lst.agent.context.TraceContext;
 import com.lst.agent.entity.TraceEntity;
-import com.sun.deploy.trace.Trace;
 import net.bytebuddy.implementation.bind.annotation.*;
 
 import java.lang.reflect.Method;
@@ -26,8 +25,8 @@ public class TraceInterceptor extends Interceptor{
             return obj;
         }finally {
             entity.setEndTime(System.currentTimeMillis());
-            if(entity.getTraceId()== TraceContext.getSEED().get()){
-                //System.out.println("------->树尾:"+entity.getTraceId());
+            if(entity.getSpanId()== TraceContext.getSEED().get()){
+                //System.out.println("------->树尾:"+entity.getSpanId());
             }else{
                 while (true){
                     TraceEntity child = TraceContext.getSTACK().pop();
@@ -39,7 +38,7 @@ public class TraceInterceptor extends Interceptor{
                     }
                 }
             }
-            if(entity.getTraceId()==1){
+            if(entity.getSpanId()==1){
                 System.out.println(entity);
                 TraceContext.clearStack();
             }

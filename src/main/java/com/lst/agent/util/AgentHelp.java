@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.lst.agent.config.entity.*;
-import com.lst.agent.match.InterceptorMatch;
+import com.lst.agent.match.MatchCenter;
 import net.bytebuddy.agent.builder.AgentBuilder;
 import net.bytebuddy.description.NamedElement;
 import net.bytebuddy.description.type.TypeDescription;
@@ -15,8 +15,6 @@ import net.bytebuddy.matcher.ElementMatcher;
 import net.bytebuddy.matcher.NameMatcher;
 import net.bytebuddy.matcher.StringMatcher;
 import net.bytebuddy.utility.JavaModule;
-
-import java.io.*;
 
 /**
  * Created by lst on 2018/1/22.
@@ -45,12 +43,13 @@ public class AgentHelp {
         JSONArray array = jsonObject.getJSONArray("lists");
         for(int i = 0;i<array.size();i++){
             JSONObject obj = array.getJSONObject(i);
-            if(obj.get("elementName").equals("AgentClass")){
-                AgentClass agentClass = JSON.toJavaObject(obj,AgentClass.class);
-                chain.addAgentElement(agentClass);
-            }else if(obj.get("elementName").equals("AgentListener")){
-                AgentListener listener = JSON.toJavaObject(obj,AgentListener.class);
-                chain.addAgentElement(listener);
+            try{
+                Class<AgentElement> classes = MatchCenter.getAgentEntity(obj.getString("elementName"));
+                if(classes!=null){
+                    chain.addAgentElement(JSON.toJavaObject(obj,classes));
+                }
+            }catch (Exception e){
+                e.printStackTrace();
             }
         }
 
@@ -99,7 +98,6 @@ public class AgentHelp {
             @Override
             public void onComplete(String typeName, ClassLoader classLoader, JavaModule module, boolean loaded) {
                 //System.out.println("onComplete:"+typeName+";load="+loaded);
-
             }
 
         };
@@ -107,7 +105,7 @@ public class AgentHelp {
     }
 
     public static AgentBuilder.Transformer createTransformer(String interceptorName,String matchName,String matchType){
-        Class classes = InterceptorMatch.getClass(interceptorName);
+        Class classes = MatchCenter.getInterceptor(interceptorName);
 
         if(classes == null){
             throw new RuntimeException("没有找到interceptor");
