@@ -27,7 +27,7 @@ public class TraceInterceptor extends Interceptor{
         }finally {
             entity.setEndTime(System.currentTimeMillis());
             if(entity.getTraceId()== TraceContext.getSEED().get()){
-                System.out.println("------->树尾:"+entity.getTraceId());
+                //System.out.println("------->树尾:"+entity.getTraceId());
             }else{
                 while (true){
                     TraceEntity child = TraceContext.getSTACK().pop();
