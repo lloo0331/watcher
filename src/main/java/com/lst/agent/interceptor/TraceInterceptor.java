@@ -18,9 +18,8 @@ public class TraceInterceptor extends Interceptor{
                                    @SuperCall Callable<?> callable, @This Object thisObj, @AllArguments Object[] arguments,@Origin Class classes) throws Exception {
 
         Object obj = null;
-        TraceEntity entity = null;
+        TraceEntity entity = TraceContext.createTraceEntity(classes.getName(),method.getName());
         try{
-            entity = TraceContext.createTraceEntity(classes.getName(),method.getName());
             obj = callable.call();
             return obj;
         }finally {

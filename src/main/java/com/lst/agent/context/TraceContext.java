@@ -39,13 +39,21 @@ public class TraceContext {
         entity.setMethodName(methodName);
 
         Integer seed = SEED.get();
+        if(seed==null){
+            seed = 0;
+        }
         seed++;
         SEED.set(seed);
 
         entity.setSpanId(seed);//设置id
         entity.setStartTime(System.currentTimeMillis());
 
-        STACK.get().push(entity);
+        Stack<TraceEntity> stack = STACK.get();
+        if(stack==null){
+            stack = new Stack<>();
+            STACK.set(stack);
+        }
+        stack.push(entity);
 
         return entity;
     }

@@ -49,6 +49,7 @@ public class TraceEntity {
 
     public void setEndTime(long endTime) {
         this.endTime = endTime;
+        this.costTime = endTime-startTime;
     }
 
     public void setStartTime(long startTime) {
