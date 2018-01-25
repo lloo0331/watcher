@@ -6,11 +6,11 @@ package com.lst.agent.config.entity;
 import net.bytebuddy.agent.builder.AgentBuilder;
 
 public class AgentMethod {
-
+    /**代理的方法名*/
     private String methodName;
-
+    /**匹配代理方法的方式*/
     private String matchType;
-
+    /**拦截器名称*/
     private String interceptor;
 
     public void setMatchType(String matchType) {
@@ -39,10 +39,6 @@ public class AgentMethod {
 
     public void exec(AgentBuilder builder){
 
-//        builder.type(AgentHelp.getMatcher(className,matchType));
-//        if(method!=null){
-//            method.exec(builder);
-//        }
     }
 
     @Override

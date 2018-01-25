@@ -12,13 +12,13 @@ import java.util.Set;
  */
 
 public class AgentClass extends AgentElement{
-
+    /**要代理的类名*/
     private String className;
-
+    /**匹配类的方式*/
     private String matchType;
-
+    /**要代理的方法*/
     private AgentMethod method;
-
+    /**是否预先加载被代理的类*/
     private boolean scan;
 
     public void setMethod(AgentMethod method) {

@@ -29,12 +29,6 @@ public class MatchCenter {
         return set1.stream().collect(Collectors.toMap(t->t.getSimpleName(), Function.identity()));
     }
 
-//    public static void init(){
-//
-//
-//
-//    }
-
     public static Class getInterceptor(String name){
         return interceptorMap.get(name);
     }

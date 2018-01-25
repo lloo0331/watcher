@@ -10,6 +10,8 @@ import java.util.*;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 import java.util.regex.Pattern;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * 包扫描器
@@ -18,8 +20,7 @@ import java.util.regex.Pattern;
  */
 public class ClassPathScanner {
 
-//	private static final Logger logger = LoggerFactory
-//			.getLogger(ClassPathScanner.class);
+	private static final Logger logger = LoggerFactory.getLogger(ClassPathScanner.class);
 
 	/**
 	 * 扫描包
@@ -50,19 +51,18 @@ public class ClassPathScanner {
 				URL url = dirs.nextElement();
 				String protocol = url.getProtocol();
 				if ("file".equals(protocol)) {
-					//logger.debug("扫描file类型的class文件....");
+					logger.debug("扫描file类型的class文件....");
 					String filePath = URLDecoder.decode(url.getFile(), "UTF-8");
 					doScanPackageClassesByFile(classes, packageName, filePath,
 							recursive, excludeInner, checkInOrEx, classFilters);
 				} else if ("jar".equals(protocol)) {
-					//logger.debug("扫描jar文件中的类....");
+					logger.debug("扫描jar文件中的类....");
 					doScanPackageClassesByJar(packageName, url, recursive,
 							classes, excludeInner, checkInOrEx, classFilters);
 				}
 			}
 		} catch (IOException e) {
-			e.printStackTrace();
-			//logger.error("IOException error:", e);
+			logger.error("IOException error:", e);
 		}
 
 		return classes;
@@ -106,13 +106,12 @@ public class ClassPathScanner {
 						classes.add(Thread.currentThread()
 								.getContextClassLoader().loadClass(className));
 					} catch (ClassNotFoundException e) {
-						//logger.error("Class.forName error:", e);
+						logger.error("Class.forName error:", e);
 					}
 				}
 			}
 		} catch (IOException e) {
-			e.printStackTrace();
-			//logger.error("IOException error:", e);
+			logger.error("IOException error:", e);
 		}
 	}
 
@@ -139,7 +138,7 @@ public class ClassPathScanner {
 				}
 				String filename = file.getName();
 				if (excludeInner && filename.indexOf('$') != -1) {
-					//logger.debug("exclude inner class with name:" + filename);
+					logger.debug("exclude inner class with name:" + filename);
 					return false;
 				}
 				return filterClassName(filename, checkInOrEx, classFilters);
@@ -158,7 +157,7 @@ public class ClassPathScanner {
 							.loadClass(packageName + '.' + className));
 
 				} catch (ClassNotFoundException e) {
-					//logger.error("IOException error:", e);
+					logger.error("IOException error:", e);
 				}
 			}
 		}

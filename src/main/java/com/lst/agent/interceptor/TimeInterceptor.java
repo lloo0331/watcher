@@ -13,7 +13,7 @@ import java.util.concurrent.Callable;
  */
 public class TimeInterceptor extends Interceptor{
 
-    public static long printTime = 20;
+    public static long printTime = 20;//耗时大于等于该时间进行输出,单位毫秒ms
     @RuntimeType
     public static Object intercept(@Origin Method method,
                                    @SuperCall Callable<?> callable) throws Exception {

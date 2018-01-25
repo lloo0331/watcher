@@ -1,8 +1,7 @@
 package com.lst.agent.exec;
 
-import com.lst.agent.interceptor.NodeInterceptor;
+import com.lst.agent.interceptor.JsonInterceptor;
 import com.lst.agent.util.AgentHelp;
-import com.lst.agent.util.ClassPathScanner;
 import net.bytebuddy.agent.builder.AgentBuilder;
 import net.bytebuddy.description.method.MethodDescription;
 import net.bytebuddy.description.type.TypeDescription;
@@ -13,7 +12,6 @@ import net.bytebuddy.utility.JavaModule;
 
 import java.lang.instrument.Instrumentation;
 import java.util.HashSet;
-import java.util.Set;
 
 /**
  * Created by li on 2018/1/4.
@@ -34,7 +32,7 @@ public class MyAgentBuddyDemo {
             public DynamicType.Builder<?> transform(DynamicType.Builder<?> builder, TypeDescription typeDescription, ClassLoader classLoader, JavaModule module) {
                 return builder
                         .method(ElementMatchers.<MethodDescription>any()) // 拦截任意方法
-                        .intercept(MethodDelegation.to(NodeInterceptor.class)
+                        .intercept(MethodDelegation.to(JsonInterceptor.class)
                         );
             }
         };

@@ -9,6 +9,7 @@ import java.util.List;
 
 /**
  * Created by li on 2018/1/4.
+ * 打印内存信息,详情见http://blog.csdn.net/f59130/article/details/78733699
  */
 
 

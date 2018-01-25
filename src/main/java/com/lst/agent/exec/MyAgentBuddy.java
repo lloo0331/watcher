@@ -6,9 +6,10 @@ import com.lst.agent.config.entity.AgentElement;
 import com.lst.agent.util.AgentHelp;
 import com.lst.agent.util.ClassPathScanner;
 import net.bytebuddy.agent.builder.AgentBuilder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.lang.instrument.Instrumentation;
-import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -18,11 +19,11 @@ import java.util.Set;
 
 public class MyAgentBuddy {
 
-    private static HashSet<String> classList = new HashSet<>();
+    private static Logger logger = LoggerFactory.getLogger(MyAgentBuddy.class);
 
     public static void premain(String agentArgs, Instrumentation inst) {
 
-        System.out.println("this is an perform monitor agent.");
+        logger.info("this is an perform monitor agent.");
 
         AgentBuilder builder = new AgentBuilder.Default();//创建默认代理链
 

@@ -3,7 +3,10 @@ package com.lst.agent.interceptor;
 
 import com.lst.agent.context.TraceContext;
 import com.lst.agent.entity.TraceEntity;
+import com.lst.agent.util.AgentHelp;
 import net.bytebuddy.implementation.bind.annotation.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.Method;
 import java.util.concurrent.Callable;
@@ -13,6 +16,8 @@ import java.util.concurrent.Callable;
  * Created by li on 2018/1/4.
  */
 public class TraceInterceptor extends Interceptor{
+
+    private static Logger logger = LoggerFactory.getLogger(TraceInterceptor.class);
     @RuntimeType
     public static Object intercept(@Origin Method method,
                                    @SuperCall Callable<?> callable, @This Object thisObj, @AllArguments Object[] arguments,@Origin Class classes) throws Exception {
@@ -38,7 +43,8 @@ public class TraceInterceptor extends Interceptor{
                 }
             }
             if(entity.getSpanId()==1){
-                System.out.println(entity);
+                logger.info(entity.toString());
+                //System.out.println(entity);
                 TraceContext.clearStack();
             }
         }

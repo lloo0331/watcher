@@ -15,11 +15,15 @@ import net.bytebuddy.matcher.ElementMatcher;
 import net.bytebuddy.matcher.NameMatcher;
 import net.bytebuddy.matcher.StringMatcher;
 import net.bytebuddy.utility.JavaModule;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Created by lst on 2018/1/22.
  */
 public class AgentHelp {
+
+    private static Logger logger = LoggerFactory.getLogger(AgentHelp.class);
 
     /**
      * 获得名称匹配
@@ -49,7 +53,7 @@ public class AgentHelp {
                     chain.addAgentElement(JSON.toJavaObject(obj,classes));
                 }
             }catch (Exception e){
-                e.printStackTrace();
+                logger.error("创建代理链异常",e);
             }
         }
 
@@ -82,7 +86,7 @@ public class AgentHelp {
 
             @Override
             public void onTransformation(TypeDescription typeDescription, ClassLoader classLoader, JavaModule module, boolean loaded, DynamicType dynamicType) {
-                System.out.println("onTransformation:"+typeDescription.getTypeName());
+                logger.info("onTransformation:"+typeDescription.getTypeName());
             }
 
             @Override
@@ -108,13 +112,17 @@ public class AgentHelp {
         Class classes = MatchCenter.getInterceptor(interceptorName);
 
         if(classes == null){
-            throw new RuntimeException("没有找到interceptor");
+            RuntimeException e = new RuntimeException("没有找到interceptor");
+            logger.error("onTransformation:"+e);
+            throw e;
         }
 
         ElementMatcher.Junction matcher = AgentHelp.getMatcher(matchName,matchType);
 
         if(matcher == null){
-            throw new RuntimeException("没有找到matcher");
+            RuntimeException e = new RuntimeException("没有找到matcher");
+            logger.error("onTransformation:"+e);
+            throw e;
         }
 
         AgentBuilder.Transformer transformer = new AgentBuilder.Transformer() {

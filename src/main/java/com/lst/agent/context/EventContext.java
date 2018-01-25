@@ -13,9 +13,6 @@ public class EventContext {
 
     private static ThreadLocal<Long> START_TIME = new ThreadLocal<Long>();
 
-
-
-
     public static NormalEvent createEvent(){
         NormalEvent event = new NormalEvent();
         long id = 1L;
