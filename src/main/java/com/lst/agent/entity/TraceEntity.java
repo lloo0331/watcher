@@ -5,8 +5,10 @@ package com.lst.agent.entity;
 
 import com.alibaba.fastjson.annotation.JSONField;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Stack;
 
 public class TraceEntity {
 
@@ -16,7 +18,7 @@ public class TraceEntity {
     @JSONField(serialize = false)
     private TraceEntity parent;//父亲节点
 
-    private List<TraceEntity> list = new LinkedList<>();//孩子节点
+    private List<TraceEntity> list = new ArrayList<>();//孩子节点
 
     private String className;//类名
 
@@ -54,7 +56,7 @@ public class TraceEntity {
         this.startTime = startTime;
     }
 
-    public void setList(List<TraceEntity> list) {
+    public void setList(Stack<TraceEntity> list) {
         this.list = list;
     }
 
@@ -87,7 +89,8 @@ public class TraceEntity {
     }
 
     public void addTrace(TraceEntity entity){
-        list.add(entity);
+        list.add(0,entity);
+        //list.add(entity,0);
     }
 
     public void setCostTime(long costTime) {

@@ -4,11 +4,11 @@
       "elementName":"AgentClass",
       "className":"demo.exec",
       "matchType":"STARTS_WITH",
-      "scan":true,
+      "scan":false,
       "method":{
-        "interceptor":"TraceInterceptor",
-        "methodName":"any",
-        "matchType":"any"
+        "interceptor":"StartEndInterceptor",
+        "methodName":"aa",
+        "matchType":"STARTS_WITH"
       }
     },
     {
@@ -17,7 +17,7 @@
       "matchType":"STARTS_WITH",
       "scan":true,
       "method":{
-        "interceptor":"TraceInterceptor",
+        "interceptor":"NodeInterceptor",
         "methodName":"any",
         "matchType":"any"
       }

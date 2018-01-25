@@ -1,7 +1,9 @@
 package com.lst.agent.interceptor;
 
 
-import com.lst.agent.util.Advice;
+import com.lst.agent.context.TraceContext;
+import com.lst.agent.entity.TraceEntity;
+import com.sun.deploy.trace.Trace;
 import net.bytebuddy.implementation.bind.annotation.*;
 
 import java.lang.reflect.Method;
@@ -17,12 +19,30 @@ public class TraceInterceptor extends Interceptor{
                                    @SuperCall Callable<?> callable, @This Object thisObj, @AllArguments Object[] arguments,@Origin Class classes) throws Exception {
 
         Object obj = null;
+        TraceEntity entity = null;
         try{
-            Advice.onMethodBegin(classes.getName(),method.getName(),method.getName(),thisObj,arguments);
+            entity = TraceContext.createTraceEntity(classes.getName(),method.getName());
             obj = callable.call();
             return obj;
         }finally {
-            Advice.onMethodEnd(obj);
+            entity.setEndTime(System.currentTimeMillis());
+            if(entity.getTraceId()== TraceContext.getSEED().get()){
+                System.out.println("------->树尾:"+entity.getTraceId());
+            }else{
+                while (true){
+                    TraceEntity child = TraceContext.getSTACK().pop();
+                    if(child==entity){
+                        TraceContext.getSTACK().push(child);
+                        break;
+                    }else{
+                        entity.addTrace(child);
+                    }
+                }
+            }
+            if(entity.getTraceId()==1){
+                System.out.println(entity);
+                TraceContext.clearStack();
+            }
         }
 
     }
