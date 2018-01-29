@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.lst.agent.config.entity.*;
+import com.lst.agent.interceptor.TimeInterceptor;
 import com.lst.agent.match.MatchCenter;
 import net.bytebuddy.agent.builder.AgentBuilder;
 import net.bytebuddy.description.NamedElement;
@@ -40,13 +41,20 @@ public class AgentHelp {
 
     //创建代理链
     public static AgentChain createAgentChain(){
+        String interceptor = FileUtil.getString("config/interceptor.json");
+        JSONObject interceptorObj = JSON.parseObject(interceptor);
+        Integer time = interceptorObj.getInteger("printTime");
+        if(time!=null){
+            TimeInterceptor.printTime = time;
+        }
+
         String a = FileUtil.getString("config/config.json");
         JSONObject jsonObject = JSON.parseObject(a);
         AgentChain chain = new AgentChain();
 
-        JSONArray array = jsonObject.getJSONArray("lists");
-        for(int i = 0;i<array.size();i++){
-            JSONObject obj = array.getJSONObject(i);
+        JSONArray array1 = jsonObject.getJSONArray("lists");
+        for(int i = 0;i<array1.size();i++){
+            JSONObject obj = array1.getJSONObject(i);
             try{
                 Class<AgentElement> classes = MatchCenter.getAgentEntity(obj.getString("elementName"));
                 if(classes!=null){

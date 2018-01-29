@@ -1,5 +1,6 @@
 package com.lst.agent.interceptor;
 
+import com.alibaba.fastjson.JSONObject;
 import net.bytebuddy.implementation.bind.annotation.Origin;
 import net.bytebuddy.implementation.bind.annotation.RuntimeType;
 import net.bytebuddy.implementation.bind.annotation.SuperCall;
@@ -30,4 +31,14 @@ public class TimeInterceptor extends Interceptor{
 
         }
     }
+
+    public static void apply(JSONObject object){
+        Integer time = object.getInteger("printTime");
+        if(time!=null){
+            printTime = time;
+        }
+    }
+
+
+
 }
